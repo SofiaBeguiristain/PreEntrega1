@@ -1,23 +1,15 @@
-// hook
-// useState
 import { useState } from "react";
 
-const Counter = () => {
+const Counter = ({ stock, agregarAlCarrito }) => {
+  // 10 - 10
   const [contador, setContador] = useState(0);
-  const [isDark, setIsDark] = useState(false);
 
   const sumar = () => {
-    setContador(contador + 1);
+    stock > contador ? setContador(contador + 1) : alert("stock maximo");
   };
   const restar = () => {
     setContador(contador - 1);
   };
-
-  const cambiarModo = () => {
-    setIsDark(!isDark);
-  };
-
-  console.log(isDark);
 
   return (
     <div
@@ -25,10 +17,13 @@ const Counter = () => {
         margin: "50px",
       }}
     >
+      <button onClick={sumar}>agregar unidad</button>
       <h2>Contador = {contador}</h2>
-      <button onClick={sumar}>sumar</button>
-      <button onClick={restar}>restar</button>
-      <button onClick={cambiarModo}>Cambiar modo </button>
+      <button onClick={restar}>restar unidad</button>
+
+      <button onClick={() => agregarAlCarrito(contador)}>
+        Agregar al carrito
+      </button>
     </div>
   );
 };

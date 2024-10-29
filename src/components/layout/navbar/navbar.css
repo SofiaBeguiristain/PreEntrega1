@@ -1,6 +1,13 @@
 .container-navbar {
-  background-color: sandybrown;
+  background-color: violet;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
 }
