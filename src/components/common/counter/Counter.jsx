@@ -1,30 +1,71 @@
 import { useState } from "react";
+import { Button, Typography, Box, IconButton } from "@mui/material";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
-const Counter = ({ stock, agregarAlCarrito }) => {
-  // 10 - 10
-  const [contador, setContador] = useState(0);
+const Counter = ({ stock, agregarAlCarrito, totalInCart }) => {
+  const [contador, setContador] = useState(1);
 
   const sumar = () => {
-    stock > contador ? setContador(contador + 1) : alert("stock maximo");
+    if (stock - totalInCart > contador) {
+      setContador(contador + 1);
+    } else {
+      alert("Stock máximo alcanzado");
+    }
   };
+
   const restar = () => {
-    setContador(contador - 1);
+    if (contador > 1) {
+      setContador(contador - 1);
+    }
   };
 
   return (
-    <div
-      style={{
-        margin: "50px",
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: 2,
+        margin: "20px",
+        padding: "20px",
+        border: "1px solid #ddd",
+        borderRadius: "8px",
+        boxShadow: 3,
       }}
     >
-      <button onClick={sumar}>agregar unidad</button>
-      <h2>Contador = {contador}</h2>
-      <button onClick={restar}>restar unidad</button>
+      <Typography variant="h6" color="text.primary">
+        Unidades en el carrito: {contador}
+      </Typography>
 
-      <button onClick={() => agregarAlCarrito(contador)}>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: 2,
+        }}
+      >
+        <IconButton onClick={restar} color="secondary" size="large">
+          <RemoveCircleIcon fontSize="inherit" />
+        </IconButton>
+        <Typography variant="h5" component="span">
+          {contador}
+        </Typography>
+        <IconButton onClick={sumar} color="primary" size="large">
+          <AddCircleIcon fontSize="inherit" />
+        </IconButton>
+      </Box>
+
+      <Button
+        onClick={() => agregarAlCarrito(contador)}
+        variant="contained"
+        color="primary"
+        startIcon={<ShoppingCartIcon />}
+      >
         Agregar al carrito
-      </button>
-    </div>
+      </Button>
+    </Box>
   );
 };
 
